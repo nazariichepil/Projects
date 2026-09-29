@@ -1,0 +1,172 @@
+<Window x:Class="WPF_App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPF_App"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" Grid.RowSpan="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBox Text="{Binding Ax}"
+          Width="150"
+          Height="50"
+          FontSize="25"
+          HorizontalAlignment="Center"
+          VerticalAlignment="Center"
+          Grid.Row="0" Grid.Column="0"/>
+
+            <TextBox Text="{Binding Ay}"
+         Width="150"
+          Height="50"
+          FontSize="25"
+          HorizontalAlignment="Center"
+          VerticalAlignment="Center"
+          Grid.Row="1" Grid.Column="0"/>
+
+            <TextBox Text="{Binding Fx}"
+          Width="150"
+          Height="50"
+          FontSize="25"
+          HorizontalAlignment="Center"
+          VerticalAlignment="Center"
+          Grid.Row="2" Grid.Column="0"/>
+
+            <TextBox Text="{Binding Fy}"
+            Width="150"
+            Height="50"
+             FontSize="25"
+             HorizontalAlignment="Center"
+             VerticalAlignment="Center"
+            Grid.Row="3" Grid.Column="0"/>
+
+            <StackPanel Grid.Row="4" Grid.Column="0"
+            HorizontalAlignment="Center">
+
+                <Slider Value="{Binding PhiX}"
+             Width="150"
+             Height="20"
+              FontSize="25"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center"
+              Grid.Row="4" Grid.Column="0"
+              Minimum="0" Maximum="360"/>
+
+                <TextBlock Text="{Binding PhiX, StringFormat={}{0:F0}°}"
+                           
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Top"/>
+
+            </StackPanel>
+
+            <StackPanel Grid.Row ="5" Grid.Column="0">
+
+                <Slider Value="{Binding PhiY}"
+              Width="150"
+              Height="20"
+              FontSize="25"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center"
+              Grid.Row="5" Grid.Column="0"
+              Minimum="0" Maximum="360"/>
+
+                <TextBlock Text="{Binding PhiY, StringFormat={}{0:F0}°}"
+           
+           HorizontalAlignment="Center"
+           VerticalAlignment="Center"/>
+
+            </StackPanel>
+            <TextBlock Text="Амплітуда x"
+ Width="150"
+ Height="50"
+ FontSize="25"
+ HorizontalAlignment="Left"
+ VerticalAlignment="Center"
+ Grid.Row="0" Grid.Column="1"/>
+
+            <TextBlock Text="Амплітуда y"
+Width="150"
+ Height="50"
+ FontSize="25"
+ HorizontalAlignment="Left"
+ VerticalAlignment="Center"
+ Grid.Row="1" Grid.Column="1"/>
+
+            <TextBlock Text="Частота x"
+ Width="150"
+ Height="50"
+ FontSize="25"
+ HorizontalAlignment="Left"
+ VerticalAlignment="Center"
+ Grid.Row="2" Grid.Column="1"/>
+
+            <TextBlock Text="Частота y"
+   Width="150"
+   Height="50"
+    FontSize="25"
+    HorizontalAlignment="Left"
+    VerticalAlignment="Center"
+   Grid.Row="3" Grid.Column="1"/>
+
+            <TextBlock Text="Фаза x"
+    Width="150"
+    Height="50"
+     FontSize="25"
+     HorizontalAlignment="Left"
+     VerticalAlignment="Center"
+     Grid.Row="4" Grid.Column="1"/>
+
+            <TextBlock Text="Фаза y"
+     Width="150"
+     Height="50"
+     FontSize="25"
+     HorizontalAlignment="Left"
+     VerticalAlignment="Center"
+     Grid.Row="5" Grid.Column="1"/>
+        </Grid>
+
+       
+        
+        <Canvas x:Name="GraphCanvas" Grid.Column="1" Grid.Row="1" Grid.RowSpan="5"
+                Background="LightGray"/>
+        <Button Content="Побудувати" HorizontalAlignment="Center" Grid.Row="6" VerticalAlignment="Center" FontSize="20"
+                Click="BuildGraph"/>
+        
+        <TextBlock Text="Фігури Ліссажу"
+                   Width="200"
+                    Height="50"
+                    FontSize="25"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Grid.Row="0" Grid.Column="1"/>
+       
+
+    </Grid>
+</Window>

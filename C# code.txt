@@ -1,0 +1,164 @@
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace WPF_App
+{
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        private MainViewModel viewModel;
+
+        public MainWindow()
+        {
+            InitializeComponent();
+
+            viewModel = new MainViewModel();
+            DataContext = viewModel;
+
+        }
+        private void BuildGraph(object sender, RoutedEventArgs e)
+        {
+            double width = GraphCanvas.ActualWidth;
+            double height = GraphCanvas.ActualHeight;
+
+            
+            GraphCanvas.Children.Clear();
+
+            Polyline line = new Polyline
+            {
+                Stroke = Brushes.Blue,
+                StrokeThickness = 2
+            };
+
+            
+            double scaleX = width / (2 * viewModel.Ax);
+            double scaleY = height / (2 * viewModel.Ay);
+
+            double scale = Math.Min(scaleX, scaleY) * 0.9;
+
+            double maxFrequency = Math.Max(viewModel.Fx, viewModel.Fy);
+
+            double minPeriod = 1 / maxFrequency;
+
+            double timeStep = minPeriod / 100;
+
+            for (double t = 0; t <= 10; t += timeStep)
+            {
+
+                double phiX = viewModel.PhiX * Math.PI / 180;
+                double phiY = viewModel.PhiY * Math.PI / 180;
+                
+                double x = viewModel.Ax *
+                           Math.Sin(2 * Math.PI * viewModel.Fx * t
+                           + viewModel.PhiX);
+
+                double y = viewModel.Ay *
+                           Math.Sin(2 * Math.PI * viewModel.Fy * t
+                           + viewModel.PhiY);
+
+                
+                double screenX = width / 2 + x * scale;
+                double screenY = height / 2 - y * scale;
+
+                
+                line.Points.Add(new Point(screenX, screenY));
+            }
+
+            
+            GraphCanvas.Children.Add(line);
+        }
+
+        public class MainViewModel : INotifyPropertyChanged
+        {
+            private double ax = 1;
+            private double ay = 1;
+            private double fx = 1;
+            private double fy = 2;
+            private double phiX = 0;
+            private double phiY = 0;
+
+            public double Ax
+            {
+                get => ax;
+                set
+                {
+                    ax = value;
+                    OnPropertyChanged();
+                }
+            }
+
+            public double Ay
+            {
+                get => ay;
+                set
+                {
+                    ay = value;
+                    OnPropertyChanged();
+                }
+            }
+
+            public double Fx
+            {
+                get => fx;
+                set
+                {
+                    fx = value;
+                    OnPropertyChanged();
+                }
+            }
+
+            public double Fy
+            {
+                get => fy;
+                set
+                {
+                    fy = value;
+                    OnPropertyChanged();
+                }
+            }
+
+            public double PhiX
+            {
+                get => phiX;
+                set
+                {
+                    phiX = value;
+                    OnPropertyChanged();
+                }
+            }
+
+            public double PhiY
+            {
+                get => phiY;
+                set
+                {
+                    phiY = value;
+                    OnPropertyChanged();
+                }
+            }
+
+            public event PropertyChangedEventHandler? PropertyChanged;
+
+            protected void OnPropertyChanged(
+                [CallerMemberName] string? propertyName = null)
+            {
+                PropertyChanged?.Invoke(
+                    this,
+                    new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+    }
+}
